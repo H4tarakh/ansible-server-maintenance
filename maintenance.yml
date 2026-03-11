@@ -1,0 +1,66 @@
+---
+- name: Automated Server Maintenance
+  hosts: servers
+  become: yes
+
+  vars:
+    backup_dir: /backup
+    log_file: /var/log/server_maintenanace.log
+
+  tasks:
+
+  - name: Update apt packages
+    apt:
+     update_cache: yes
+
+  - name: Upgrade packages
+    apt:
+     upgrade: dist
+    register: upgrade_result
+
+  - name: Remove unused packages
+    apt:
+     autoremove: yes
+
+  # Pre Maintenence Checks
+
+  - name: Check disk usage
+    command: df -h
+    register: disk_output
+
+  - name: Show disk usage
+    debug:
+     var: disk_output.stdout
+
+  - name: Check memory usage
+    command: free -m
+    register: memory_output
+
+  - name: Show memory usage
+    debug:
+      var: memory_output.stdout
+
+# BAckup Automation
+  - name: Create backup directory
+    file:
+     path: "{{ backup_dir }}"
+     state: directory
+     mode: '0755'
+
+  - name: Backup /etc folder
+    archive:
+     path: /etc
+     dest: "{{ backup_dir  }}/etc_backup_{{ ansible_date_time.date }}.tar.gz"
+
+# Conditional Reboot
+  - name: Reboot system if updates installed
+    reboot:
+      reboot_timeout: 300
+    when: upgrade_result.changed
+
+# Logging
+  - name: Log maintenance execution
+    lineinfile:
+      path: "{{ log_file }}"
+      line: "Maintenance executed on {{ ansible_date_time.date }} {{ ansible_date_time.time }} "
+      create: yes
