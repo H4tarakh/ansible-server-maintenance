@@ -1,0 +1,128 @@
+###   ANSIBLE PROJECT  ###
+
+____________________________________________________________
+____________________________________________________________
+vm1 1234 2GBRAM 4core 20GBHARDDISK 192.168.1.103/24
+vm2 1234 2GBRAM 4core 20GBHARDDISK 192.168.1.101
+
+____________________________________________________________
+____________________________________________________________
+Git Hub token :: ////
+____________________________________________________________
+____________________________________________________________
+
+# FLOW
+vm1 (Control Node)
+        │
+        │ SSH
+        ▼
+vm2 (Managed Node)
+
+Cron → Runs Playbook Weekly
+        │
+        ▼
+Ansible Playbook
+   │
+   ├── Update packages
+   ├── Disk check
+   ├── Memory check
+   ├── Backup
+   ├── Conditional reboot
+   └── Logging
+
+
+____________________________________________________________
+____________________________________________________________
+# EXPLAIN
+"I built an automated server maintenance system using Ansible. The playbook performs system updates, disk and memory checks, and automatically creates backups of important directories. It also performs a conditional reboot only if updates require it. I scheduled the maintenance using Cron so the automation runs weekly without manual intervention. The solution helps maintain server health, improve reliability, and reduce manual operational effort."
+
+
+____________________________________________________________
+____________________________________________________________
+3. Project Workflow (Explain Like This)
+
+You can say:
+
+"The automation workflow starts when the cron scheduler triggers the Ansible playbook. The playbook connects to the remote server through SSH and performs several maintenance tasks."
+
+Then explain steps:
+
+1️⃣ Pre-maintenance checks
+
+Disk usage (df -h)
+
+Memory usage (free -m)
+
+2️⃣ System update
+
+Update package cache
+
+Upgrade packages
+
+Remove unused packages
+
+3️⃣ Backup automation
+
+Backup /etc directory using archive module
+
+4️⃣ Conditional reboot
+
+Reboot only if updates were installed
+
+5️⃣ Logging
+
+Maintenance execution time stored in log file
+
+6️⃣ Cron scheduling
+
+Weekly automation using cron
+
+
+____________________________________________________________
+____________________________________________________________
+4. Tools You Used
+
+Tell them:
+
+Tool	Purpose
+Ansible	Configuration management & automation
+Ubuntu	Operating system
+Oracle VM VirtualBox	Virtual environment
+Cron	Scheduling automation
+SSH	Communication between servers
+
+____________________________________________________________
+____________________________________________________________
+5. If Interviewer Asks “What Did You Learn?”
+
+You can say:
+
+"Through this project I learned how infrastructure automation works. I practiced writing Ansible playbooks, managing inventory files, using SSH for remote automation, scheduling jobs with cron, and implementing server maintenance tasks in an automated way."
+
+____________________________________________________________
+____________________________________________________________
+6. If Interviewer Asks “What Challenges Did You Face?”
+
+You can say:
+
+Common issues you faced:
+
+SSH connection errors
+
+Permission denied issues
+
+Missing sudo password in playbook
+
+Cron scheduling configuration
+
+And how you solved them:
+
+"I resolved these issues by configuring SSH access properly, using the --ask-become-pass option in Ansible, and verifying cron jobs using crontab -l."
+
+____________________________________________________________
+____________________________________________________________
+7. If Interviewer Asks “How Can You Improve This?”
+
+Good answer:
+
+"The project can be improved by implementing Ansible roles, adding monitoring alerts, integrating centralized logging, and using dynamic inventory for cloud environments."
