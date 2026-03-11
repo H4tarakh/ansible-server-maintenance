@@ -3,7 +3,7 @@
   <context id="">
     <application id="org.gnome.Nautilus.desktop" score="0" last-seen="1772987526"/>
     <application id="gnome-initial-setup.desktop" score="2" last-seen="1772986960"/>
-    <application id="org.gnome.Terminal.desktop" score="13256" last-seen="1773172806"/>
+    <application id="org.gnome.Terminal.desktop" score="19381" last-seen="1773255524"/>
     <application id="update-manager.desktop" score="4" last-seen="1773080994"/>
   </context>
 </application-state>
